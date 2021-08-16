@@ -1,0 +1,45 @@
+A Book Management API which manages Books, Authors and Publications
+
+BOOKS - 
+    1) ISBN - An unique number for each book
+    2) title - Title of the Book
+    3) pub_date - Publication Date of the Book
+    4) language - Language of the Book
+    5) page_num - Total Pages of the Book
+    6) author[] - An array of author for the Book (Can have multiple Authors)
+    7) category[] - The Category the Book belongs (Can belong to multiple Categories)
+
+-------------------------------------------------
+
+AUTHORS -
+    1) id - An unique id for each author
+    2) name - Name of the Author
+    3) books[] - An array of books written by the author 
+
+-------------------------------------------------
+
+PUBLICATIONS -
+    1) id - An unique id for each publication house
+    2) name - Name of the Publication house
+    3) books[] - Books published by the publication house
+
+-------------------------------------------------
+
+
+API DESIGN REQUIREMENTS 
+
+BOOKS -
+    1) To get all the books
+    2) To get a specific books
+    3) To get a list of book based on Category
+    4) To get a list of book based on Languages
+
+AUTHORS -
+    1) To get all the Authors
+    2) To get a specific Author
+    3) To get a list of Authors Based on Books
+
+PUBLICATIONS -
+    1) TO get all the publications
+    2) To get a specific publication
+    3) to get a list of publication based on books
