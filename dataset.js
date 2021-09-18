@@ -5,7 +5,7 @@ const Books = [
         pub_date : 2008,
         language : "eng",
         page_num : 300,
-        author : ['Jules Verne'],
+        author : ["AU1"],
         category : ['Science Finction','Time Travel', 'Science', 'Fiction'],
         publication : "PUB1"
     },
@@ -15,7 +15,7 @@ const Books = [
         pub_date : 2013,
         language : "eng",
         page_num : 250,
-        author : ['Jules Verne','Lewis Carrol'],
+        author : ['AU1','AU2'],
         category : ['Fiction','Mystery','Fantasy'],
         publication : "PUB2"
     },
