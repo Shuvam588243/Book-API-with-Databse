@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const PublicationModel = require("./models/PublicationSchema");
+const PublicationModel = require("../models/PublicationSchema");
 const BookModel = require("../models/BookSchema");
 
 /* 
@@ -9,7 +9,7 @@ Access          PUBLIC
 Parameter       None
 Methods         GET
 */
-router.get("/publications", async (req, res) => {
+router.get("/", async (req, res) => {
   const Publication = await PublicationModel.find();
 
   res.json({
@@ -18,13 +18,13 @@ router.get("/publications", async (req, res) => {
 });
 //-------------------------------------------------------------------------------------
 /* 
-  Route           /Publications/new
+  Route           /publications/new
   Description     To add a new Publications
   Access          PUBLIC
   Parameter       none
   Methods         GET
   */
-router.post("/publications/new/", async (req, res) => {
+router.post("/new/", async (req, res) => {
   try {
     const { newPublication } = req.body;
 
@@ -41,13 +41,13 @@ router.post("/publications/new/", async (req, res) => {
 });
 //--------------------------------------------------------------------------------
 /* 
-  Route           /Publications/
+  Route           /publications/
   Description     To get publications author based on id
   Access          PUBLIC
   Parameter       pub_id
   Methods         GET
   */
-router.get("/publications/:pub_id", async (req, res) => {
+router.get("/:pub_id", async (req, res) => {
   try {
     const { pub_id } = req.params;
 
@@ -72,13 +72,13 @@ router.get("/publications/:pub_id", async (req, res) => {
 });
 //-------------------------------------------------------------------------------
 /* 
-  Route           /Publications/book/
+  Route           /publications/book/
   Description     To get all the Publications based on book isbn
   Access          PUBLIC
   Parameter       isbn
   Methods         GET
   */
-router.get("/publications/book/:isbn", async (req, res) => {
+router.get("/book/:isbn", async (req, res) => {
   const { isbn } = req.params;
 
   Publication = await PublicationModel.find({
@@ -99,14 +99,14 @@ router.get("/publications/book/:isbn", async (req, res) => {
 });
 //------------------------------------------------------------------------
 
-// Route    - /publication/updateBook/:id
+// Route    - /publications/updateBook/:id
 // Des      - to update/add new book
 // Access   - Public
 // Method   - PUT
 // Params   - id
 // Body     - { "book": ISBN }
 
-router.put("/publications/updateBook/:pub_id", async (req, resp) => {
+router.put("/updateBook/:pub_id", async (req, resp) => {
   const updatedPublication = await PublicationModel.findOneAndUpdate(
     { id: parseInt(request.params.pub_id) },
     { $addToSet: { books: request.body.book } },
@@ -161,3 +161,5 @@ router.delete("/deleteBook/:pub_id/:book_id", async (req, res) => {
 
   res.status(200).json({ publication: updatedPublication, book: updatedBook });
 });
+
+module.exports = router;

@@ -27,7 +27,7 @@ Parameter       none
 Methods         POST
 Body            newBook(ISBN,title,pub_date,language,page_num,author,category,publicat)
 */
-router.post("/books/new", (req, res) => {
+router.post("/new", (req, res) => {
   try {
     const { newBook } = req.body;
 
@@ -49,7 +49,7 @@ Access          PUBLIC
 Parameter       isbn
 Methods         GET
 */
-router.get("/books/isbn/:isbn", async (req, res) => {
+router.get("/:isbn", async (req, res) => {
   try {
     const { isbn } = req.params;
     const getBook = await BookModel.findOne({ ISBN: isbn });
@@ -75,7 +75,7 @@ Access          PUBLIC
 Parameter       category
 Methods         GET
 */
-router.get("/books/category/:category", async (req, res) => {
+router.get("/category/:category", async (req, res) => {
   try {
     const getSpecificBook = await BookModel.find({
       category: req.params.category,
@@ -102,7 +102,7 @@ Access          PUBLIC
 Parameter       lang
 Methods         GET
 */
-router.get("/books/language/:lang", (req, res) => {
+router.get("/language/:lang", async (req, res) => {
   try {
     const getSpecificBook = await BookModel.find({
       language: req.params.language,
@@ -129,7 +129,7 @@ router.get("/books/language/:lang", (req, res) => {
 // Params   - author
 // Body     - none
 
-router.get("/books/:author_id", async (req, res) => {
+router.get("/:author_id", async (req, res) => {
   const getSpecificBook = await BookModel.findOne({
     authors: parseInt(request.params.author_id),
   });
@@ -145,14 +145,14 @@ router.get("/books/:author_id", async (req, res) => {
 });
 
 /* 
-Route           /books/update/:isbn
+Route           /books/update/:isbn/author
 Description     To add new author in the book
 Access          PUBLIC
 Parameter       None
 Methods         GET
 Body            id
 */
-router.put("/books/update/:isbn", async (req, res) => {
+router.put("/update/:isbn/author/", async (req, res) => {
   try {
     const { isbn } = req.params;
     const { newAuthor } = req.body;
@@ -187,7 +187,7 @@ router.put("/books/update/:isbn", async (req, res) => {
 // Params   - isbn
 // Body     - { title: newTtile }
 
-Router.put("/update/:isbn", async (req, res) => {
+router.put("/update/:isbn", async (req, res) => {
   const updatedBook = await BookModel.findOneAndUpdate(
     { ISBN: request.params.isbn },
     { title: request.body.title },
@@ -203,7 +203,7 @@ Router.put("/update/:isbn", async (req, res) => {
 // Params   - isbn
 // Body     - none
 
-router.delete("/books/deleteBook/:isbn", async (req, resp) => {
+router.delete("/deleteBook/:isbn", async (req, resp) => {
   const deleteBook = await BookModel.findOneAndDelete({
     ISBN: request.params.isbn,
   });
@@ -219,7 +219,7 @@ router.delete("/books/deleteBook/:isbn", async (req, resp) => {
 // Params   - bookID, authorID
 // Body     - none
 
-router.delete("/books/deleteAuthor/:isbn/:author_id", async (req, res) => {
+router.delete("/deleteAuthor/:isbn/:author_id", async (req, res) => {
   const isbn = request.params.isbn;
   const author_id = parseInt(request.params.author_id);
 
@@ -237,3 +237,5 @@ router.delete("/books/deleteAuthor/:isbn/:author_id", async (req, res) => {
 
   return response.json({ book: updatedBook, author: updatedAuthor });
 });
+
+module.exports = router;

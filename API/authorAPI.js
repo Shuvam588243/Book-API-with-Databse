@@ -8,7 +8,7 @@ Access          PUBLIC
 Parameter       None
 Methods         GET
 */
-router.get("/authors/", async (req, res) => {
+router.get("/", async (req, res) => {
   const Author = await AuthorModel.find();
   res.json({
     author: Author,
@@ -22,7 +22,7 @@ router.get("/authors/", async (req, res) => {
   Parameter       isbn
   Methods         GET
   */
-router.post("/authors/new", (req, res) => {
+router.post("/new", (req, res) => {
   try {
     const { newAuthor } = req.body;
     const Author = AuthorModel.create(newAuthor);
@@ -41,7 +41,7 @@ router.post("/authors/new", (req, res) => {
   Parameter       id
   Methods         GET
   */
-router.get("/authors/:author_id", async (req, res) => {
+router.get("/:author_id", async (req, res) => {
   const { author_id } = req.params;
 
   try {
@@ -68,7 +68,7 @@ router.get("/authors/:author_id", async (req, res) => {
   Parameter       isbn
   Methods         GET
   */
-router.get("/authors/book/:isbn", async (req, res) => {
+router.get("/book/:isbn", async (req, res) => {
   const getAuthorByBook = await AuthorModel.findOne({
     books: req.params.isbn,
   });
@@ -90,7 +90,7 @@ router.get("/authors/book/:isbn", async (req, res) => {
 // Params   - id
 // Body     - { "author_name": "new author_name" }
 
-router.put("/authors/update/:author_id", async (req, resp) => {
+router.put("/update/:author_id", async (req, resp) => {
   const updatedAuthorName = await AuthorModel.findOneAndUpdate(
     { id: parseInt(req.params.author_id) },
     { name: req.body.author_name },
@@ -106,10 +106,12 @@ router.put("/authors/update/:author_id", async (req, resp) => {
 // Params   - author_id
 // Body     - none
 
-router.delete("/authors/delete/:author_id", async (req, res) => {
+router.delete("/delete/:author_id", async (req, res) => {
   const deleteAuthor = await AuthorModel.findOneAndDelete({
     id: parseInt(req.params.author_id),
   });
 
   return res.json({ msg: "Author deleted successfully" });
 });
+
+module.exports = router;

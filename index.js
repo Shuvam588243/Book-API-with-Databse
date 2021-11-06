@@ -6,9 +6,14 @@ const port = process.env.PORT || 3000;
 const database = require("./dataset");
 booker.use(express.json());
 booker.use(express.urlencoded({ extended: true }));
-const BookModel = require("./models/BookSchema");
-const AuthorModel = require("./models/AuthorSchema");
-const PublicationModel = require("./models/PublicationSchema");
+
+const BookRouter = require("./API/bookAPI");
+const AuthorRouter = require("./API/authorAPI");
+const PublicationRouter = require("./API/publicationAPI");
+
+booker.use("/books", BookRouter);
+booker.use("/authors", AuthorRouter);
+booker.use("/publications", PublicationRouter);
 
 //Database Connection
 mongoose
